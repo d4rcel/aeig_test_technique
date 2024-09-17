@@ -11,9 +11,12 @@ export const createTaskSchema = object({
         }),
         dueDate: string({
             required_error: 'Due date is required',
-        }),
+        }).transform((str) => new Date(str)),
         status: string({
             required_error: 'Status is required',
+        }),
+        priority: string({
+            required_error: 'Priority is required',
         }),
         project: string({
             required_error: 'Project Id is required',
@@ -41,7 +44,9 @@ export const updateTaskSchema = object({
         description: string(),
         dueDate: string(),
         status: string(),
-        assignedTo: string()
+        priority: string(),
+        assignedTo: string(),
+        project: string()
     }).partial(),
 });
 

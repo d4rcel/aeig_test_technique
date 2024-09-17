@@ -1,9 +1,11 @@
 import express from "express";
 import {
+  addMemberToProjectHandler,
   createProjectHandler,
   deleteProjectHandler,
   getProjectHandler,
   getProjectsHandler,
+  removeMemberFromProjectHandler,
   updateProjectHandler,
 } from "../controllers/project.controller";
 import { deserializeUser } from "../middleware/deserializeUser";
@@ -37,5 +39,9 @@ router
     updateProjectHandler
   )
   .delete(validate(deleteProjectSchema), deleteProjectHandler);
+
+router.patch('/:projectId/members/add', restrictTo('admin'), addMemberToProjectHandler);
+
+router.patch('/:projectId/members/remove', restrictTo('admin'), removeMemberFromProjectHandler)
 
 export default router;

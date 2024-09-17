@@ -20,9 +20,8 @@ export class Project {
   @prop({ ref: () => User })
   members: Ref<User>[];  // Array of users assigned to the project
 
-  // @prop({ default: Date.now })
-  @prop({ required: true })
-  dueDate: string;
+  @prop({ default: Date.now })
+  dueDate: Date;
 
   @prop({ default: "active" })
   status: string; // Example values: "active", "completed", "archived"

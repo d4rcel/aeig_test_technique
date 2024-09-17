@@ -21,9 +21,15 @@ import {
     return taskModel.findById(id).populate('assignedTo').populate('project').lean();
   };
   
-  // Service to find all tasks for a specific user or project
-  export const findAllTasks = async ({ filter }: { filter: FilterQuery<Task> }) => {
-    return taskModel.find(filter).populate('assignedTo').populate('project');
+  // Service to find all tasks with filtering and sorting options for a specific user or project
+  export const findAllTasks = async ({ 
+    filter,
+    sort 
+  }: { 
+    filter: FilterQuery<Task>,
+    sort?: string | Record<string, 1 | -1>
+  }) => {
+    return taskModel.find(filter).sort(sort).populate('assignedTo').populate('project');
   };
   
   export const findTask = async (

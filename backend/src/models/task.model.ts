@@ -24,12 +24,14 @@ export class Task {
   @prop({ ref: () => User })
   assignedTo: Ref<User>;  // User assigned to this task
 
-  // @prop({ default: Date.now })
-  @prop({ required: true })
-  dueDate: string;
+  @prop({ default: Date.now })
+  dueDate: Date;
 
   @prop({ default: "pending" })
   status: string;  // Example values: "pending", "in-progress", "completed"
+
+  @prop()
+  priority: string
 
   @prop({ default: Date.now })
   completedAt: Date | null;

@@ -13,6 +13,8 @@ import {
   findOneAndDelete,
 } from '../services/task.service';
 import AppError from '../utils/appError';
+import { findAndUpdateProject, findProjectById } from '../services/project.service';
+import { Types } from "mongoose"
 
 export const createTaskHandler = async (
   req: Request<{}, {}, CreateTaskInput>,
@@ -22,7 +24,22 @@ export const createTaskHandler = async (
   try {
     const { assignedTo, ...taskData } = req.body;
 
-    const task = await createTask({ input: req.body, assignedTo: assignedTo || res.locals.user._id });
+    const assignedToUserId = assignedTo || res.locals.user._id;
+
+    const task = await createTask({ input: req.body, assignedTo: assignedToUserId });
+    
+    const project = await findProjectById(req.body.project);
+    if (!project) {
+      return next(new AppError('Project with that ID not found', 404));
+    }
+
+    if (!project.members.includes(assignedToUserId)) {
+      await findAndUpdateProject(
+        { _id: req.body.project },
+        { $push: { members: assignedToUserId } },
+        {}
+      );
+    }
 
     res.status(201).json({
       status: 'success',
@@ -65,7 +82,38 @@ export const getTasksHandler = async (
 ) => {
   try {
     const userId = res.locals.user._id;
-    const tasks = await findAllTasks({ filter: { assignedTo: userId } });
+
+    // Extract query parameters for filters
+    const { status, dueDate, priority, sortBy } = req.query;
+
+    // Build the filter object
+    const filter: any = { assignedTo: userId };
+
+    if (status) {
+      filter.status = status;
+    }
+
+    if (dueDate) {
+      filter.dueDate = { $gte: new Date(dueDate as string) };
+    }
+
+    if (priority) {
+      filter.priority = priority;
+    }
+
+    // Define sorting options
+    let sort = {};
+    if (sortBy === 'dueDate') {
+      sort = { dueDate: 1 }; // Ascending order by dueDate
+    } else if (sortBy === 'priority') {
+      sort = { priority: -1 }; // Descending order by priority
+    } else if (sortBy === 'status') {
+      console.log("DESSEIN ::: 111", sortBy);
+      
+      sort = { status: 1 }; // Ascending order by status
+    }
+
+    const tasks = await findAllTasks({ filter, sort });
 
     res.status(200).json({
       status: 'success',
@@ -92,6 +140,22 @@ export const updateTaskHandler = async (
 
     if (!updatedTask) {
       return next(new AppError('Task with that ID not found', 404));
+    }
+
+    if (req.body.assignedTo && req.body.project) {
+      const project = await findProjectById(req.body.project);
+
+      if (!project) {
+        return next(new AppError('Project with that ID not found', 404));
+      }
+
+      if (!project.members.includes(new Types.ObjectId(req.body.assignedTo))) {
+        await findAndUpdateProject(
+          { _id: req.body.project },
+          { $push: { members: req.body.assignedTo } },
+          { new: true }
+        );
+      }
     }
 
     res.status(200).json({

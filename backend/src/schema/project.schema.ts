@@ -10,7 +10,7 @@ export const createProjectSchema = object({
         }),
         dueDate: string({
             required_error: 'Due date is required',
-        }),
+        }).transform((str) => new Date(str)),
         status: string({
             required_error: 'Status is required',
         }),

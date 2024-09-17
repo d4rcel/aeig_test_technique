@@ -18,7 +18,7 @@ export const createProject = async ({
 };
 
 export const findProjectById = async (id: string) => {
-  return projectModel.findById(id).populate('owner').lean();
+  return projectModel.findById(id);
 };
 
 export const findAllProjects = async ({ userId }: { userId: ObjectId }) => {
