@@ -190,7 +190,7 @@ export const refreshAccessTokenHandler = async (
 
     // Sign new access token
     const access_token = signJwt({ sub: user.id }, "accessTokenPrivateKey", {
-      expiresIn: `${config.get<number>("accessTokenExpiresIn")}m`,
+      expiresIn: `${config.get<number>("accessTokenExpiresIn")}d`,
     });
 
     // Send the access token as cookie

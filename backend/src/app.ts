@@ -8,6 +8,8 @@ import cors from 'cors';
 import connectDB from './utils/connectDB';
 import userRouter from './routes/user.route';
 import authRouter from './routes/auth.route';
+import projectRouter from './routes/project.route';
+import taskRouter from './routes/task.route';
 
 const app = express();
 
@@ -25,6 +27,8 @@ app.use(
 
 app.use('/api/users', userRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/project', projectRouter);
+app.use('/api/task', taskRouter);
 
 app.all('*', (req: Request, res: Response, next: NextFunction) => {
     const err = new Error(`Route ${req.originalUrl} not found`) as any;

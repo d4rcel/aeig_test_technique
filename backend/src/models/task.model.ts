@@ -1,4 +1,4 @@
-import { prop, getModelForClass, Ref, modelOptions, index } from "@typegoose/typegoose";
+import { prop, getModelForClass, Ref, modelOptions, index, Severity } from "@typegoose/typegoose";
 import { Project } from "./project.model";
 import { User } from "./user.model";
 
@@ -6,6 +6,9 @@ import { User } from "./user.model";
 @modelOptions({
   schemaOptions: {
     timestamps: true,
+  },
+  options: {
+    allowMixed: Severity.ALLOW,
   },
 })
 export class Task {
@@ -21,8 +24,9 @@ export class Task {
   @prop({ ref: () => User })
   assignedTo: Ref<User>;  // User assigned to this task
 
-  @prop({ default: Date.now })
-  dueDate: Date;
+  // @prop({ default: Date.now })
+  @prop({ required: true })
+  dueDate: string;
 
   @prop({ default: "pending" })
   status: string;  // Example values: "pending", "in-progress", "completed"
