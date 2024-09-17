@@ -10,8 +10,20 @@ import userRouter from './routes/user.route';
 import authRouter from './routes/auth.route';
 import projectRouter from './routes/project.route';
 import taskRouter from './routes/task.route';
+import chatRouter from './routes/chat.route'
+
+import { Server } from 'socket.io';
+import http from 'http';
+import { initializeSocket } from './socket';
 
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server, {
+    cors: {
+      origin: ['http://localhost:5173'],
+      credentials: true,
+    },
+  });
 
 app.use(express.json({ limit: '10kb' }));
 app.use(cookieParser());
@@ -29,6 +41,10 @@ app.use('/api/users', userRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/project', projectRouter);
 app.use('/api/task', taskRouter);
+app.use('/api/chat', chatRouter);
+
+// Initialize Socket.io
+initializeSocket(io);
 
 app.all('*', (req: Request, res: Response, next: NextFunction) => {
     const err = new Error(`Route ${req.originalUrl} not found`) as any;

@@ -9,7 +9,7 @@ import { Project } from "./project.model";
 })
 export class Message {
   @prop({ ref: () => Project, required: true })
-  project: Ref<Project>;  // Reference to the project chat room
+  projectId: Ref<Project>;  // Reference to the project chat room
 
   @prop({ ref: () => User, required: true })
   sender: Ref<User>;  // The user who sent the message
@@ -18,7 +18,7 @@ export class Message {
   content: string;  // The message content
 
   @prop({ default: Date.now })
-  sentAt: Date;
+  timestamp: Date;
 }
 
 const messageModel = getModelForClass(Message);

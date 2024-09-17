@@ -27,6 +27,7 @@ export const createProjectHandler = async (
 
     const project = await createProject({ input: req.body, user_id });
 
+    
     res.status(201).json({
       status: 'success',
       data: {
@@ -158,7 +159,6 @@ export const addMemberToProjectHandler = async (
       return next(new AppError('Project with that ID not found', 404));
     }
 
-    console.log("KIOL ::: ", userId, project.owner);
     // Only the project owner can add members
     if (String(project.owner) !== String(userId)) {
       return next(new AppError('You are not the owner of this project', 403));

@@ -107,9 +107,7 @@ export const getTasksHandler = async (
       sort = { dueDate: 1 }; // Ascending order by dueDate
     } else if (sortBy === 'priority') {
       sort = { priority: -1 }; // Descending order by priority
-    } else if (sortBy === 'status') {
-      console.log("DESSEIN ::: 111", sortBy);
-      
+    } else if (sortBy === 'status') {      
       sort = { status: 1 }; // Ascending order by status
     }
 

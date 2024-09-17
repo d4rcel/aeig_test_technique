@@ -14,7 +14,7 @@ export const createProject = async ({
   input: Partial<Project>;
   user_id: string;
 }) => {
-  return projectModel.create({ ...input, owner: user_id });
+  return projectModel.create({ ...input, owner: user_id, members: [user_id] });
 };
 
 export const findProjectById = async (id: string) => {
