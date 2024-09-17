@@ -1,0 +1,294 @@
+@charset "UTF-8";
+
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
+
+:root {
+    --body-font-family: "DM Sans", sans-serif;
+    --title-font-family: "Poppins", sans-serif;
+    --icon-font-family: "Font Awesome 6 Pro";
+    --icon-font-family2: "Flaticon";
+    --container-width: 1290px;
+    --divder-space: 200px;
+    --headings-color: #181a20;
+    --main-color: "#2892ff";
+}
+
+/* Mixins */
+/* Typography Styles */
+html,
+body {
+    scroll-behavior: auto !important;
+}
+
+body {
+    background-color: #ffffff;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--headings-color);
+    line-height: 26px;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+a,
+.btn {
+    color: var(--headings-color);
+    text-decoration: none;
+    outline: none;
+    -webkit-transition: all ease 0.4s;
+    -o-transition: all ease 0.4s;
+    transition: all ease 0.4s;
+}
+a:hover,
+.btn:hover {
+    color: #2892ff;
+}
+a:active,
+a:focus,
+a:hover,
+a:visited,
+.btn:active,
+.btn:focus,
+.btn:hover,
+.btn:visited {
+    text-decoration: none;
+    outline: none;
+}
+
+button,
+.btn {
+    -webkit-transition: all ease 0.4s;
+    -o-transition: all ease 0.4s;
+    transition: all ease 0.4s;
+}
+
+iframe {
+    border: none;
+    width: 100%;
+}
+
+.h1,
+h1,
+.h2,
+h2,
+.h3,
+h3,
+.h4,
+h4,
+.h5,
+h5,
+.h6,
+h6 {
+    font-family: var(--title-font-family);
+    color: var(--headings-color);
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+p {
+    margin: 0 0 15px 0;
+    color: var(--headings-color);
+    line-height: 1.85;
+    font-weight: 400;
+}
+
+h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a,
+h6 a,
+p a,
+span a {
+    font-size: inherit;
+    font-family: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+}
+
+.h1,
+h1 {
+    font-size: 36px;
+}
+
+.h2,
+h2 {
+    font-size: 30px;
+}
+
+.h3,
+h3 {
+    font-size: 24px;
+}
+
+.h4,
+h4 {
+    font-size: 20px;
+}
+
+.h5,
+h5 {
+    font-size: 18px;
+}
+
+.h6,
+h6 {
+    font-size: 15px;
+}
+
+li {
+    list-style-type: none;
+}
+
+@media (max-width: 575.98px) {
+    .h2,
+    h2 {
+        font-size: 20px;
+    }
+}
+/* Header Styles */
+.login-info {
+    font-size: 14px;
+    color: var(--headings-color);
+    font-family: var(--title-font-family);
+    font-weight: 600;
+}
+
+/* All Type Of Footer Styles */
+.footer-style1 {
+    background-color: var(--headings-color);
+}
+.footer-style1.at-home2 {
+    padding-top: 230px;
+}
+.footer-style1.at-home4 {
+    background-color: #ffffff;
+}
+.footer-style1.at-home6 {
+    background-color: transparent;
+    background-image: url(/images/home/footer-bg-6.jpg);
+    background-size: cover;
+}
+
+.footer-widget {
+    position: relative;
+}
+.footer-widget .info-title {
+    color: #bebdbd;
+    font-family: var(--title-font-family);
+    margin-bottom: 5px;
+}
+.footer-widget .info-phone a,
+.footer-widget .info-mail a {
+    color: #ffffff;
+}
+
+.fz0 {
+    font-size: 0px;
+}
+
+.fz6 {
+    font-size: 6px;
+}
+
+.fz7 {
+    font-size: 7px;
+}
+
+.fz8 {
+    font-size: 8px;
+}
+
+.fz9 {
+    font-size: 9px;
+}
+
+.fz10 {
+    font-size: 10px;
+}
+
+.fz11 {
+    font-size: 11px;
+}
+
+.fz12 {
+    font-size: 12px;
+}
+
+.fz13 {
+    font-size: 13px;
+}
+
+.fz14 {
+    font-size: 14px;
+}
+
+.fz15 {
+    font-size: 15px;
+}
+
+.fz16 {
+    font-size: 16px;
+}
+
+.fz17 {
+    font-size: 17px;
+}
+
+.fz18 {
+    font-size: 18px;
+}
+
+.couz {
+    min-height: 65px;
+}
+
+.fz19 {
+    font-size: 19px;
+}
+
+.fz20 {
+    font-size: 20px;
+}
+
+.fz24 {
+    font-size: 24px;
+}
+
+.fz26 {
+    font-size: 26px;
+}
+
+.fz30 {
+    font-size: 30px;
+}
+
+.mb0 {
+    margin-bottom: 0px !important;
+}
+.mb5 {
+    margin-bottom: 5px !important;
+}
+.mb10 {
+    margin-bottom: 10px !important;
+}
+.mb15 {
+    margin-bottom: 15px !important;
+}
+.mb20 {
+    margin-bottom: 20px !important;
+}
+.mb25 {
+    margin-bottom: 25px !important;
+}
+.mb30 {
+    margin-bottom: 30px !important;
+}
+.mb35 {
+    margin-bottom: 35px !important;
+}
+
+.auHover:hover {
+    color: "#fff";
+}

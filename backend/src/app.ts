@@ -20,11 +20,14 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-      origin: ['http://localhost:5173'],
+      origin: ['http://localhost:3000','https://www.postman.com'],
       credentials: true,
     },
   });
+// console.log("LESOCJ ::: 111 ", server);
+console.log("LESOCJ ::: 222 ", io);
 
+initializeSocket(io);
 app.use(express.json({ limit: '10kb' }));
 app.use(cookieParser());
 
@@ -33,7 +36,7 @@ if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 app.use(
     cors({
         credentials: true,
-        origin: ['http://localhost:3000'],
+        origin: ['http://localhost:3000','https://www.postman.com'],
     })
 );
 
@@ -43,8 +46,6 @@ app.use('/api/project', projectRouter);
 app.use('/api/task', taskRouter);
 app.use('/api/chat', chatRouter);
 
-// Initialize Socket.io
-initializeSocket(io);
 
 app.all('*', (req: Request, res: Response, next: NextFunction) => {
     const err = new Error(`Route ${req.originalUrl} not found`) as any;
