@@ -21,8 +21,8 @@ export const findProjectById = async (id: string) => {
   return projectModel.findById(id);
 };
 
-export const findAllProjects = async ({ userId }: { userId: ObjectId }) => {
-  return projectModel.find({ owner: userId }).populate('owner');
+export const findAllProjects = async (filter: FilterQuery<Project>, options: QueryOptions = {}) => {
+  return projectModel.find(filter, {}, options).populate('owner').lean();
 };
 
 export const findProject = async (

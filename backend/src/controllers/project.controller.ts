@@ -68,7 +68,16 @@ export const getProjectsHandler = async (
 ) => {
   try {
     const userId = res.locals.user._id;
-    const projects = await findAllProjects({ userId });
+    const userRole = res.locals.user.role;
+
+    let projects;
+
+    if (userRole === 'admin') {
+      projects = await findAllProjects({});
+    } else {
+      // Non-admin users can only see the projects they are members of
+      projects = await findAllProjects({ members: userId });
+    }
 
     res.status(200).json({
       status: 'success',
