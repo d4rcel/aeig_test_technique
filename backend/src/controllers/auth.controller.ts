@@ -57,6 +57,7 @@ export const registerHandler = async (
       email: req.body.email,
       name: req.body.name,
       password: req.body.password,
+      role: req.body.role
     });
     user.verified = true;
     await user.save({ validateBeforeSave: false });
