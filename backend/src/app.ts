@@ -20,7 +20,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-      origin: ['http://localhost:3000','https://www.postman.com'],
+      origin: ['http://localhost:5173','https://www.postman.com'],
       credentials: true,
     },
   });
@@ -36,7 +36,7 @@ if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 app.use(
     cors({
         credentials: true,
-        origin: ['http://localhost:3000','https://www.postman.com'],
+        origin: ['http://localhost:5173','https://www.postman.com'],
     })
 );
 
