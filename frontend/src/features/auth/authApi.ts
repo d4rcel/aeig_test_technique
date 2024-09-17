@@ -1,5 +1,5 @@
-import { LoginInput } from '../../pages/login.page';
-import { RegisterInput } from '../../pages/register.page';
+// import { LoginInput } from '../../pages/login.page';
+import { RegisterInput, LoginInput } from '@/types';
 import { GenericResponse } from '@/types';
 import { userApi } from '../user/userApi';
 import { apiSlice } from '../api/apiSlice';
