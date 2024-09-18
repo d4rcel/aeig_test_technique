@@ -13,7 +13,6 @@ const EditTaskt = () => {
   const location = useLocation();
   const stateProject = location.state;
 
-  console.log("KIODAI ::: 444", stateProject);
   
 
   const id:string = stateProject._id

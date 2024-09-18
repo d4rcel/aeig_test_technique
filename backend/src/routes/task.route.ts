@@ -24,8 +24,9 @@ router
   .post(
     validate(createTaskSchema),
     createTaskHandler
-  )
-  .get(getTasksHandler);
+  );
+
+router.route("/get-project-tasks").post(getTasksHandler);
 
 router
   .route("/:taskId")

@@ -13,8 +13,6 @@ const Project = () => {
   const [deleteProject] =
   useDeleteProjectMutation();
 
-  console.log("WASABI ::: ", projects);
-
   const onDeleteHandler = (id: string) => {
     if (window.confirm('Ete vous sur ?')) {
       deleteProject(id);

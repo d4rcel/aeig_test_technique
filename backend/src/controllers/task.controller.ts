@@ -87,7 +87,9 @@ export const getTasksHandler = async (
     const { status, dueDate, priority, sortBy } = req.query;
 
     // Build the filter object
-    const filter: any = {  };
+    console.log("KKKKKKKK : :: ", req.body);
+    
+    const filter: any = { project: req.body.project };
 
     if(res.locals.user.role != "admin") {
       filter.assignedTo= userId

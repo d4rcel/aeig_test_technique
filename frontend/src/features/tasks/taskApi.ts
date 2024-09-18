@@ -22,17 +22,17 @@ export const taskApi = apiSlice.injectEndpoints({
       })
     }),
 
-    getAllTasks: build.query<TasksResponse, any>({
-        query: () => ({
-          url: "task",
-          method: "GET",
+    getAllTasks: build.mutation<TasksResponse, string>({
+        query: (project) => ({
+          url: "task/get-project-tasks",
+          method: "POST",
+          body: {project},
           credentials: 'include',
         }),
-        providesTags: ['Task'],
+        invalidatesTags: ['Task'],
         async onQueryStarted(_, { dispatch, queryFulfilled }) {
           try {
             const { data } = await queryFulfilled;
-            console.log("JJJJJJ ;;;; 7777", data);
             
             dispatch(setTasks(data.data.tasks))
           } catch (error) { }
@@ -58,7 +58,7 @@ export const taskApi = apiSlice.injectEndpoints({
       invalidatesTags: ['Task']
     }),
 
-    getUsers: build.query<any, string>({
+    getUsers: build.query<any, any>({
       query: () => ({
         url: "users",
         method: "GET",
@@ -73,7 +73,7 @@ export const {
   useCreateTaskMutation,
   useDeleteTaskMutation,
   useEditTaskMutation,
-  useGetAllTasksQuery,
+  useGetAllTasksMutation,
   useGetTaskMutation,
   useGetUsersQuery
 } = taskApi;

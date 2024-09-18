@@ -11,10 +11,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 const EditProject = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const stateProject = location.state;
-
-  console.log("KIODAI ::: 444", stateProject);
-  
+  const stateProject = location.state;  
 
   const id:string = stateProject._id
   const {

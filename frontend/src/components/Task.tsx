@@ -19,15 +19,7 @@ return (
     </div>
 
     <div className="mt-3">
-        {/* Dropdown to assign user */}
-        {/* <select className="form-select mb-2" onChange={(e) => onAssign(task.id, e.target.value)}>
-        <option value="">Assigner à:</option>
-        {users.map((user) => (
-            <option key={user.id} value={user.id}>{user.name}</option>
-        ))}
-        </select> */}
-
-        {/* Buttons for edit, delete */}
+       
         <Link to="/edit-task" className="btn btn-warning me-2" >
             Editer
         </Link>

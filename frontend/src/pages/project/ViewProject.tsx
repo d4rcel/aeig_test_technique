@@ -1,10 +1,10 @@
 import { useAppSelector } from "@/app/hook"
 import ChatScreen from "@/components/ChatScreen"
 import Task from "@/components/Task"
-import { useGetAllTasksQuery, useGetUsersQuery, useDeleteTaskMutation } from "@/features/tasks/taskApi"
+import { useGetAllTasksMutation, useDeleteTaskMutation, useGetUsersQuery } from "@/features/tasks/taskApi"
 import { useEffect } from "react"
 import { toast } from "react-hot-toast"
-import { useLocation, useNavigate } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import { getFormatedDate, getStatusStyle } from '@/utils/formater'
 
 const ViewProject = () => {
@@ -17,9 +17,9 @@ const ViewProject = () => {
   // const { user } = useAppSelector((state) => state.user)
 
   const { tasks } = useAppSelector((state) => state.tasks)
-  const { isLoading, isSuccess, isError, error, data } = useGetAllTasksQuery(undefined);
+  const [getTasks, {isLoading, isSuccess, isError, error, data }] = useGetAllTasksMutation(undefined);
 
-  // const { isLoading: loadingUsers, data: users } = useGetUsersQuery(undefined);
+  const { data: users } = useGetUsersQuery(undefined);
 
   const [deleteTask, { isLoading: deleting }] = useDeleteTaskMutation();
 
@@ -28,6 +28,13 @@ const ViewProject = () => {
   };
 
   useEffect(() => {
+    console.log("ROMANI ::: ", project._id);
+    
+    getTasks({project: project._id})
+  }, [])
+
+  useEffect(() => {
+
     if (!tasks) {
       if (isSuccess) {
         toast.dismiss("signup_user")
@@ -71,7 +78,7 @@ const ViewProject = () => {
           </div>
 
           {/* Button to add a new task */}
-          <button className="btn btn-primary mb-3" >Ajouter une tache</button>
+          <Link state={users} to="/create-task" className="btn btn-primary mb-3" >Ajouter une tache</Link>
 
           {/* List of To-Do Cards */}
           {tasks && tasks.map(task => (
