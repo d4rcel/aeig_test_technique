@@ -45,3 +45,21 @@ export interface GenericResponse {
     email: string;
     password: string;
   }
+
+  export interface IProjectRequest {
+    title: string;
+    description: string;
+    dueDate: Date;
+    status: string;
+  }
+
+  export interface IProjectResponse {
+    title: string;
+    description: string;
+    dueDate: Date;
+    status: string;
+  }
+
+  export type ProjectsResponse = Required<{
+    projects: IProjectResponse[]
+  }>;

@@ -6,7 +6,7 @@ export const apiSlice = createApi({
   baseQuery: customFetchBase,
 
   tagTypes: [
-    "Property",
+    "Project",
     // "User",
     // "Brand",
     // "Category",

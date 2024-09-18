@@ -1,5 +1,5 @@
 import { useCookies } from 'react-cookie';
-import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { userApi } from '@/features/user/userApi';
 
 const RequireUser = ({ allowedRoles, children }: { allowedRoles: string[], children: React.ReactNode }) => {

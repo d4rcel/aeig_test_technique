@@ -388,3 +388,24 @@ li {
   border-radius: 25px;
   cursor: pointer;
 }
+
+.pending-style {
+  font-family: var(--title-font-family);
+  font-weight: 400;
+  font-size: 14px;
+  padding: 10px 20px;
+  border-radius: 60px;
+  width: max-content;
+}
+.pending-style.style1 {
+  background-color: #fff8dd;
+  color: #e4b303;
+}
+.pending-style.style2 {
+  background-color: #e5f0fd;
+  color: #3554d1;
+}
+.pending-style.style3 {
+  background-color: #fff5f8;
+  color: #f1416c;
+}

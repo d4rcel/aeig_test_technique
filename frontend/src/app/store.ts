@@ -2,13 +2,15 @@ import { configureStore } from "@reduxjs/toolkit";
 // import { setupListeners } from "@reduxjs/toolkit/query/react";
 import { apiSlice } from '../features/api/apiSlice'
 import userReducer from '../features/user/userSlice'
+import projectReducer from '../features/project/projectSlice'
+
 // import propertyReducer from '../features/property/property_slice'
 
 export const store = configureStore({
     reducer: {
         user: userReducer,
         [apiSlice.reducerPath]: apiSlice.reducer,
-        // properties: propertyReducer,
+        projects: projectReducer,
     },
     middleware: (getDefaultMiddleware) => {
         return getDefaultMiddleware().concat(apiSlice.middleware)
