@@ -1,7 +1,8 @@
-
 const Project = () => {
   return (
-    <div>Project</div>
+    <div className="fz20 centered-element">
+      Créer un projet maintenant
+    </div>
   )
 }
 

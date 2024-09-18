@@ -1,6 +1,7 @@
 import About from "@/pages/about";
 import Register from "@/pages/register";
 import Login from "@/pages/login";
+import Unauthorized from "@/pages/unauthorize";
 
 export default [
     {
@@ -9,13 +10,19 @@ export default [
         component: <About />
     },
     {
-        title: "Gallery",
+        title: "Register",
         url: "/register",
         component: <Register/>,
     },
     {
-        title: "Artiste",
+        title: "Login",
         url: "/login",
         component: <Login/>,
+    },
+    {
+        title: "Unauthorized",
+        url: "/unauthorized",
+        component: <Unauthorized/>,
     }
+
 ];

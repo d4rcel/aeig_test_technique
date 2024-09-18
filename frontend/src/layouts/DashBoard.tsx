@@ -1,10 +1,10 @@
 import { Outlet } from 'react-router-dom'
-import  SideBar  from '../components/dashboard/SideBar'
+import Header from '@/components/common/Header'
 
 const Dashboard = () => {
   return (
     <div className='font-serif'>
-      <SideBar />
+      <Header />
       <Outlet />
     </div>
   )

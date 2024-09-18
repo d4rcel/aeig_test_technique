@@ -30,7 +30,7 @@ const Register = () => {
       toast.dismiss("signup_user")
       toast.success(data?.message);
       reset()
-      // navigate('/login');
+      navigate('/dashboard');
     }
 
     if (isLoading) {
@@ -85,7 +85,7 @@ const Register = () => {
 
         <div className="d-grid mb20">
           <button className="ud-btn btn-thm" type="submit">
-            Créer un compte
+            Se connecter
           </button>
         </div>
         <div className="hr_content mb20">

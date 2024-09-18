@@ -9,7 +9,7 @@ const dashboardRoutes = {
     path: "/",
     element: (
         <CookiesProvider>
-            <RequireUser>
+            <RequireUser allowedRoles={['admin', 'member']}>
                 <Dashboard />
             </RequireUser>
         </CookiesProvider>

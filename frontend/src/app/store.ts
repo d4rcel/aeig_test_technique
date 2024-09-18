@@ -6,7 +6,7 @@ import userReducer from '../features/user/userSlice'
 
 export const store = configureStore({
     reducer: {
-        auth: userReducer,
+        user: userReducer,
         [apiSlice.reducerPath]: apiSlice.reducer,
         // properties: propertyReducer,
     },

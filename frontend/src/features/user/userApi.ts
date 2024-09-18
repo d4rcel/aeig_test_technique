@@ -1,12 +1,8 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
 import { setUser } from '../user/userSlice';
-import customFetchBase from '../api/customFetchBase';
 import { IUser } from '@/types';
+import { apiSlice } from '../api/apiSlice';
 
-export const userApi = createApi({
-  reducerPath: 'userApi',
-  baseQuery: customFetchBase,
-  tagTypes: ['User'],
+export const userApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getMe: builder.query<IUser, null>({
       query() {
