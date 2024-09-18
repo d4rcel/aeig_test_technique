@@ -116,26 +116,6 @@ La plateforme est construite avec :
 
 ---
 
-## Utilisation
-
-### 1. Inscription et Connexion
-- Visitez http://localhost:3000/ et inscrivez-vous pour créer un compte.
-- Connectez-vous avec vos identifiants pour obtenir un token d'accès (JWT).
-
-### 2. Créer un projet
-- Une fois connecté, créez un nouveau projet depuis le tableau de bord.
-- Ajoutez des membres à votre projet en sélectionnant dans la liste des utilisateurs.
-
-### 3. Attribuer des tâches
-- Créez des tâches pour le projet et assignez-les aux membres de l'équipe.
-- Les tâches peuvent être filtrées et triées par statut, date d'échéance et priorité.
-
-### 4. Chat en temps réel
-- Rejoignez la salle de chat du projet et communiquez avec les autres membres du projet en temps réel.
-- Tous les messages seront stockés dans la base de données et peuvent être consultés ultérieurement.
-
----
-
 ## Améliorations futures
 - Permissions basées sur les rôles pour les membres du projet (par exemple, les chefs de projet peuvent assigner des tâches, les contributeurs non).
 - Notifications pour les nouvelles tâches, les mises à jour de statut des tâches et les nouveaux messages de chat.
