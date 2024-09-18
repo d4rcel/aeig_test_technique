@@ -54,6 +54,7 @@ export interface GenericResponse {
   }
 
   export interface IProjectResponse {
+    _id: string;
     title: string;
     description: string;
     dueDate: Date;
@@ -62,4 +63,25 @@ export interface GenericResponse {
 
   export type ProjectsResponse = Required<{
     projects: IProjectResponse[]
+  }>;
+
+  export interface ITaskRequest {
+    title: string;
+    description: string;
+    dueDate: Date;
+    status: string;
+    assignedTo: string
+  }
+
+  export interface ITaskResponse {
+    _id: string;
+    title: string;
+    description: string;
+    dueDate: Date;
+    status: string;
+    assignedTo: string
+  }
+
+  export type TasksResponse = Required<{
+    projects: ITaskResponse[]
   }>;

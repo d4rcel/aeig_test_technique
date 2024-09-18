@@ -8,7 +8,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 
-const EditProject = () => {
+const EditTaskt = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const stateProject = location.state;
@@ -128,4 +128,4 @@ const EditProject = () => {
   )
 }
 
-export default EditProject
+export default EditTaskt

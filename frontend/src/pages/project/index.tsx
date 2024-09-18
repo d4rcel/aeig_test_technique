@@ -1,27 +1,16 @@
 import { useAppSelector } from "@/app/hook"
 import { Link } from "react-router-dom"
 import { useGetAllProjectsQuery, useDeleteProjectMutation } from "@/features/project/projectApi";
-import { toast } from "react-hot-toast";
+import {getStatusStyle} from '@/utils/formater'
 
-const getStatusStyle = (status: string) => {
-  switch (status) {
-    case "pending":
-      return "pending-style style1";
-    case "Progress":
-      return "pending-style style2";
-    case "Completed":
-      return "pending-style style3";
-    default:
-      return "";
-  }
-};
+
 
 const Project = () => {
   const { projects } = useAppSelector((state) => state.projects)
 
   const { isLoading } = useGetAllProjectsQuery(undefined);
 
-  const [deleteProject, { isLoading: deleting, error}] =
+  const [deleteProject] =
   useDeleteProjectMutation();
 
   console.log("WASABI ::: ", projects);
@@ -44,7 +33,7 @@ const Project = () => {
             {projects.map((project, index) => (
               <div className="col" key={index}>
                 <div className="card">
-                  <h5 className="card-header">{project.title}</h5>
+                  <Link to="/view-project" state={project} className="card-header">{project.title}</Link>
                   <div className={`ml-8 card-subtitle mt-2 ${getStatusStyle(project.status)}`} >{project.status}</div>
                   <div className="card-body">
                     <p className="card-text">{project.description}</p>

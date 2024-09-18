@@ -3,14 +3,15 @@ import { configureStore } from "@reduxjs/toolkit";
 import { apiSlice } from '../features/api/apiSlice'
 import userReducer from '../features/user/userSlice'
 import projectReducer from '../features/project/projectSlice'
+import taskReducer from '../features/tasks/taskSlice'
 
-// import propertyReducer from '../features/property/property_slice'
 
 export const store = configureStore({
     reducer: {
         user: userReducer,
         [apiSlice.reducerPath]: apiSlice.reducer,
         projects: projectReducer,
+        tasks: taskReducer,
     },
     middleware: (getDefaultMiddleware) => {
         return getDefaultMiddleware().concat(apiSlice.middleware)

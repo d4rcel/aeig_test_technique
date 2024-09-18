@@ -28,7 +28,7 @@ const Register = () => {
   useEffect(() => {
     if (isSuccess) {
       toast.dismiss("signup_user")
-      toast.success(data?.message);
+      toast.success(data?.message as any);
       reset()
       navigate('/login');
     }

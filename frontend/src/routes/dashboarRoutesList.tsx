@@ -1,5 +1,7 @@
 import Chat from "@/pages/chat";
 import CreateProject from "@/pages/project/CreateProject";
+import EditProject from "@/pages/project/EditProject";
+import ViewProject from "@/pages/project/ViewProject";
 
 export default [
     {
@@ -8,8 +10,18 @@ export default [
         component: <Chat />
     },
     {
-        title: "Communication",
+        title: "Créer un projet",
         url: "/create-project",
         component: <CreateProject />
+    },
+    {
+        title: "Editer un projet",
+        url: "/edit-project",
+        component: <EditProject />
+    },
+    {
+        title: "Voir un projet",
+        url: "/view-project",
+        component: <ViewProject />
     }
 ];

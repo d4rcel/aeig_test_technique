@@ -20,5 +20,6 @@ export const userApi = apiSlice.injectEndpoints({
         } catch (error) {}
       },
     }),
+    
   }),
 });

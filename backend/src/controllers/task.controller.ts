@@ -87,7 +87,11 @@ export const getTasksHandler = async (
     const { status, dueDate, priority, sortBy } = req.query;
 
     // Build the filter object
-    const filter: any = { assignedTo: userId };
+    const filter: any = {  };
+
+    if(res.locals.user.role != "admin") {
+      filter.assignedTo= userId
+    }
 
     if (status) {
       filter.status = status;

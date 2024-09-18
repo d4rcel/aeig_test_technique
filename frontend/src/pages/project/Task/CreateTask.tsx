@@ -1,5 +1,5 @@
-import { useCreateProjectMutation } from "@/features/project/projectApi";
-import { IProjectRequest } from "@/types";
+import { useCreateTaskMutation } from "@/features/tasks/taskApi";
+import { ITaskRequest } from "@/types";
 import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
@@ -13,13 +13,13 @@ const CreateProject = () => {
     control,
     handleSubmit,
     reset
-  } = useForm<IProjectRequest>();
+  } = useForm<ITaskRequest>();
 
-  const [login, { isLoading, isSuccess, error, isError, data }] =
-    useCreateProjectMutation();
+  const [createTask, { isLoading, isSuccess, error, isError, data }] =
+  useCreateTaskMutation();
 
-  const handleCreateProjectForm = (project: IProjectRequest) => {
-    login(project);
+  const handleCreateProjectForm = (project: ITaskRequest) => {
+    createTask(project);
   };
 
   const navigate = useNavigate();

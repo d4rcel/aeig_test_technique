@@ -16,7 +16,7 @@ const Register = () => {
 
   // 👇 Calling the Register Mutation
   const [login, { isLoading, isSuccess, error, isError, data }] =
-    useLoginUseruseDeleteProjectMutation();
+  useLoginUserMutation();
 
   const handleLoginForm = (user: LoginInput) => {
     login(user);

@@ -14,6 +14,14 @@ export const projectApi = apiSlice.injectEndpoints({
         invalidatesTags: ['Project']
     }),
 
+    getProject: build.mutation<any, string>({
+      query: (id) => ({
+        url: `project/${id}`,
+        method: "GET",
+        credentials: 'include'
+      })
+    }),
+
     getAllProjects: build.query<ProjectsResponse, any>({
         query: () => ({
           url: "project",
@@ -30,17 +38,17 @@ export const projectApi = apiSlice.injectEndpoints({
         }
       }),
 
-    editProject: build.mutation<ProjectsResponse, { id: number; body: any }>({
+    editProject: build.mutation<ProjectsResponse, { id: string; body: IProjectRequest }>({
       query: ({id, body}) => ({
         url: `project/${id}`,
         method: "PATCH",
-        body,
+        body: body,
         credentials: 'include'
       }),
       invalidatesTags: ['Project']
     }),
 
-    deleteProject: build.mutation<any, number>({
+    deleteProject: build.mutation<any, string>({
       query: (id) => ({
         url: `project/${id}`,
         method: "DELETE",
@@ -64,4 +72,6 @@ export const {
   useCreateProjectMutation,
   useGetAllProjectsQuery,
   useDeleteProjectMutation,
+  useEditProjectMutation,
+  useGetProjectMutation
 } = projectApi;
