@@ -1,4 +1,4 @@
-# Plateforme de gestion de projets
+# Plateforme de gestion de projets : Tiny Maestro
 
 ## Aperçu
 
@@ -11,7 +11,7 @@ Il s'agit d'une plateforme complète de gestion de projets qui permet aux utilis
 La plateforme est construite avec :
 - Backend : Express.js avec MongoDB (Mongoose)
 - Communication en temps réel : Socket.io pour le chat
-- Frontend : React.js (avec Axios pour les appels API et Socket.io-client pour les mises à jour en temps réel)
+- Frontend : React.js (avec Redux Toolkit Query pour les appels API et Socket.io-client pour les mises à jour en temps réel)
 - Authentification : Basée sur JWT avec contrôle d'accès en fonction des rôles
 
 ---
@@ -25,12 +25,12 @@ La plateforme est construite avec :
 
 ### Frontend
 - React.js
-- Axios pour les requêtes HTTP
+- Redux Toolkit Query pour les requêtes HTTP
 - Socket.io-client pour la communication en temps réel
-- Framework CSS (par exemple, Tailwind CSS ou Material-UI pour le style)
+- Bootsrap
 
 ### Authentification
-- JWT (JSON Web Token) avec contrôle d'accès basé sur les rôles (RBAC)
+- JWT (JSON Web Token) avec contrôle d'accès basé sur les rôles
 
 ---
 
@@ -38,7 +38,6 @@ La plateforme est construite avec :
 
 ### Rôles des utilisateurs
 - Admin : Peut voir et gérer tous les projets.
-- Propriétaire du projet : Peut créer et gérer ses propres projets et tâches.
 - Membres du projet : Peuvent consulter et collaborer sur les projets auxquels ils sont associés, y compris participer aux discussions.
 
 ### Projets
@@ -66,25 +65,29 @@ La plateforme est construite avec :
 ### Installation
 
 1. Cloner le dépôt :
-   git clone https://github.com/votre-utilisateur/plateforme-gestion-projets.git
+   git clone https://github.com/d4rcel/aeig_test_technique.git
 
 2. Naviguer dans le répertoire du backend :
-   cd plateforme-gestion-projets/backend
+   cd aeig_test_technique/backend
 
 3. Installer les dépendances :
    npm install
 
 4. Configurer les variables d'environnement en créant un fichier .env dans le répertoire backend. Ajouter les variables suivantes :
-   PORT=8000
-   MONGO_URI=mongodb://localhost:27017/gestion_projets
-   JWT_SECRET=secret_jwt
-   ACCESS_TOKEN_PUBLIC_KEY=clé_publique
-   ACCESS_TOKEN_PRIVATE_KEY=clé_privée
+   NODE_ENV=development
+   MONGODB_USERNAME=username
+   MONGODB_PASSWORD=mot_de_passe
+   MONGODB_DATABASE_NAME=tinymaestro
+   DATABASE_URL=mongodb://username:mot_de_passe@localhost:27017/tinymaestro?authSource=tinymaestro
+   ACCESS_TOKEN_PRIVATE_KEY=cle_prive_access_token
+   ACCESS_TOKEN_PUBLIC_KEY=cle_public_access_token
+   REFRESH_TOKEN_PRIVATE_KEY=cle_prive_refresh_token
+   REFRESH_TOKEN_PUBLIC_KEY=cle_public_refresh_token
 
-5. Démarrer le serveur :
-   npm run dev
+6. Démarrer le serveur :
+   npm start
 
-6. Le serveur sera lancé sur http://localhost:8000.
+7. Le serveur sera lancé sur http://localhost:8000.
 
 ---
 
@@ -92,91 +95,24 @@ La plateforme est construite avec :
 
 ### Pré-requis
 1. Node.js (v14+)
-2. React.js (Create React App ou Vite)
+2. React.js (Vite)
 
 ### Installation
 
 1. Naviguer dans le répertoire du frontend :
-   cd plateforme-gestion-projets/frontend
+   cd aeig_test_technique/frontend
 
 2. Installer les dépendances :
    npm install
 
 3. Configurer les variables d'environnement en créant un fichier .env dans le répertoire frontend. Ajouter les variables suivantes :
-   REACT_APP_API_URL=http://localhost:8000/api
-   REACT_APP_SOCKET_URL=http://localhost:8000
+   VITE_NODE_ENV=development
+   VITE_SERVER_ENDPOINT=http://localhost:8000
 
 4. Démarrer le serveur de développement React :
    npm start
 
-5. Le frontend sera lancé sur http://localhost:3000.
-
----
-
-## Points d'API Backend
-
-### Authentification
-- POST /api/auth/login : Connexion de l'utilisateur.
-- POST /api/auth/register : Inscription de l'utilisateur.
-- GET /api/auth/logout : Déconnexion de l'utilisateur.
-
-### Utilisateur
-- GET /api/users : Récupérer tous les utilisateurs.
-
-### Projet
-- POST /api/project : Créer un nouveau projet.
-- GET /api/project : Obtenir tous les projets (les admins voient tout, les membres voient uniquement leurs projets).
-- PATCH /api/project/:projectId/members/add : Ajouter un membre à un projet.
-- PATCH /api/project/:projectId/members/remove : Retirer un membre d'un projet.
-
-### Tâche
-- POST /api/task : Créer une nouvelle tâche.
-- GET /api/task : Récupérer les tâches avec des filtres (statut, date limite, priorité).
-- PATCH /api/task/:taskId : Mettre à jour une tâche.
-- DELETE /api/task/:taskId : Supprimer une tâche.
-
-### Chat
-- GET /api/chat/:projectId : Récupérer les messages du chat pour un projet.
-
----
-
-## Intégration WebSocket
-
-### Socket.io
-
-La connexion WebSocket est utilisée pour le chat en temps réel au sein des projets. Seuls les membres du projet peuvent participer au chat.
-
-- URL de connexion : ws://localhost:8000/socket.io/
-- Événements :
-  - joinProject : Permet de rejoindre une salle de chat pour un projet spécifique.
-    socket.emit('joinProject', { projectId: '<project_id>' });
-  - sendMessage : Permet d'envoyer un message dans la salle de chat du projet.
-    socket.emit('sendMessage', { projectId: '<project_id>', message: 'Bonjour à tous !' });
-
-### Intégration Frontend avec WebSocket
-Vous devez connecter le frontend avec Socket.io-client pour activer le chat en temps réel :
-
-import { io } from 'socket.io-client';
-
-const socket = io(process.env.REACT_APP_SOCKET_URL, {
-  auth: {
-    token: localStorage.getItem('access_token'),
-  },
-});
-
-Rejoindre le chat d'un projet :
-socket.emit('joinProject', { projectId: 'id_du_projet' });
-
-Écouter les nouveaux messages :
-socket.on('newMessage', (message) => {
-  console.log('Nouveau message reçu :', message);
-});
-
-Envoyer un nouveau message :
-socket.emit('sendMessage', {
-  projectId: 'id_du_projet',
-  message: 'Bonjour, équipe !',
-});
+5. Le frontend sera lancé sur http://localhost:5173.
 
 ---
 
@@ -216,12 +152,4 @@ socket.emit('sendMessage', {
 5. Ouvrez une Pull Request.
 
 ---
-
-## Licence
-
-Ce projet est sous licence MIT.
-
----
-
-**Bon développement !** 😊
 
