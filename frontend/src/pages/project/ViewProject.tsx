@@ -1,11 +1,12 @@
 import { useAppSelector } from "@/app/hook"
 import ChatScreen from "@/components/ChatScreen"
 import Task from "@/components/Task"
-import { useGetAllTasksMutation, useDeleteTaskMutation, useGetUsersQuery } from "@/features/tasks/taskApi"
+import { useGetAllTasksMutation, useDeleteTaskMutation } from "@/features/tasks/taskApi"
 import { useEffect } from "react"
 import { toast } from "react-hot-toast"
 import { Link, useLocation, useNavigate } from "react-router-dom"
 import { getFormatedDate, getStatusStyle } from '@/utils/formater'
+import { userApi } from "@/features/user/userApi"
 
 const ViewProject = () => {
 
@@ -19,16 +20,22 @@ const ViewProject = () => {
   const { tasks } = useAppSelector((state) => state.tasks)
   const [getTasks, {isLoading, isSuccess, isError, error, data }] = useGetAllTasksMutation(undefined);
 
-  const { data: users } = useGetUsersQuery(undefined);
-
   const [deleteTask, { isLoading: deleting }] = useDeleteTaskMutation();
 
   const handleDeleteTask = (taskId: string) => {
     deleteTask(taskId);
   };
 
+  const { isLoading: loadingUser, isFetching } = userApi.endpoints.getUsers.useQuery(null, {
+    skip: false,
+    refetchOnMountOrArgChange: true,
+  });
+
+  const users = userApi.endpoints.getUsers.useQueryState(null, {
+    selectFromResult: ({ data }) => data!,
+  });
+
   useEffect(() => {
-    console.log("ROMANI ::: ", project._id);
     
     getTasks({project: project._id})
   }, [])

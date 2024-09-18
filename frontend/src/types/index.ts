@@ -15,7 +15,6 @@ export interface GenericResponse {
     name: string;
     email: string;
     role: string;
-    photo: string;
     _id: string;
     id: string;
     created_at: string;
@@ -70,7 +69,8 @@ export interface GenericResponse {
     description: string;
     dueDate: Date;
     status: string;
-    assignedTo: string
+    assignedTo: string,
+    priority: string
   }
 
   export interface ITaskResponse {

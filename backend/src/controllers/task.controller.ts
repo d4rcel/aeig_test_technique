@@ -87,7 +87,6 @@ export const getTasksHandler = async (
     const { status, dueDate, priority, sortBy } = req.query;
 
     // Build the filter object
-    console.log("KKKKKKKK : :: ", req.body);
     
     const filter: any = { project: req.body.project };
 

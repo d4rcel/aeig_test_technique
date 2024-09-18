@@ -1,4 +1,4 @@
-import { setUser } from '../user/userSlice';
+import { setUser, setUsers } from '../user/userSlice';
 import { IUser } from '@/types';
 import { apiSlice } from '../api/apiSlice';
 
@@ -17,6 +17,24 @@ export const userApi = apiSlice.injectEndpoints({
         try {
           const { data } = await queryFulfilled;
           dispatch(setUser(data));
+        } catch (error) {}
+      },
+    }),
+
+    getUsers: builder.query<IUser[], null>({
+      query() {
+        return {
+          url: '/users',
+          credentials: 'include',
+        };
+      },
+      transformResponse: (result: { data: { users: IUser[] } }) =>
+        result.data.users,
+      async onQueryStarted(_args, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+          
+          dispatch(setUsers(data));
         } catch (error) {}
       },
     }),

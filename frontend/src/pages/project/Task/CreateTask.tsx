@@ -7,7 +7,7 @@ import { useLocation, useNavigate } from "react-router-dom"
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-const CreateTask = () => {
+const CreateTask = ({projectId}) => {
     const location = useLocation()
     const users = location.state
     const {
@@ -22,6 +22,7 @@ const CreateTask = () => {
         useCreateTaskMutation();
 
     const handleCreateTaskForm = (project: ITaskRequest) => {
+        project.project = projectId
         createTask(project);
     };
 
@@ -112,10 +113,18 @@ const CreateTask = () => {
                 <div className="mb25">
                     <label className="form-label fw600 dark-color">Assigner à:</label>
                     <select className="form-control mb-2" {...register('assignedTo', { required: true })}>
-                        <option value="">Assigner à:</option>
                         {users.map((user) => (
                             <option key={user._id} value={user._id}>{user.name}</option>
                         ))}
+                    </select>
+                </div>
+
+                <div className="mb25">
+                    <label className="form-label fw600 dark-color">Priorité</label>
+                    <select className="form-control mb-2" {...register('priority', { required: true })}>
+                        <option value="low">Faible</option>
+                        <option value="medium">Moyen</option>
+                        <option value="high">Elevé</option>
                     </select>
                 </div>
 
