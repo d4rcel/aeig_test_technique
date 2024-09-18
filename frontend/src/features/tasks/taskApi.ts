@@ -26,7 +26,7 @@ export const taskApi = apiSlice.injectEndpoints({
         query: (project) => ({
           url: "task/get-project-tasks",
           method: "POST",
-          body: {project},
+          body: project,
           credentials: 'include',
         }),
         invalidatesTags: ['Task'],
