@@ -24,8 +24,7 @@ const io = new Server(server, {
       credentials: true,
     },
   });
-// console.log("LESOCJ ::: 111 ", server);
-console.log("LESOCJ ::: 222 ", io);
+
 
 initializeSocket(io);
 app.use(express.json({ limit: '10kb' }));

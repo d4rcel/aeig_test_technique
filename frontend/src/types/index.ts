@@ -70,7 +70,9 @@ export interface GenericResponse {
     dueDate: Date;
     status: string;
     assignedTo: string,
-    priority: string
+    priority: string,
+    project: string,
+    _id: string,
   }
 
   export interface ITaskResponse {
@@ -83,5 +85,5 @@ export interface GenericResponse {
   }
 
   export type TasksResponse = Required<{
-    projects: ITaskResponse[]
+    tasks: ITaskResponse[]
   }>;

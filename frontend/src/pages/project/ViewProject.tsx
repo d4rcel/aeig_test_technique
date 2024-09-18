@@ -4,14 +4,13 @@ import Task from "@/components/Task"
 import { useGetAllTasksMutation, useDeleteTaskMutation } from "@/features/tasks/taskApi"
 import { useEffect } from "react"
 import { toast } from "react-hot-toast"
-import { Link, useLocation, useNavigate } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import { getFormatedDate, getStatusStyle } from '@/utils/formater'
 import { userApi } from "@/features/user/userApi"
 
 const ViewProject = () => {
 
   const location = useLocation()
-  // const navigate = useNavigate();
 
   const project = location.state
 
@@ -26,7 +25,7 @@ const ViewProject = () => {
     deleteTask(taskId);
   };
 
-  const { isLoading: loadingUser, isFetching } = userApi.endpoints.getUsers.useQuery(null, {
+  const { isLoading: loadingUser } = userApi.endpoints.getUsers.useQuery(null, {
     skip: false,
     refetchOnMountOrArgChange: true,
   });
@@ -45,7 +44,7 @@ const ViewProject = () => {
     if (!tasks) {
       if (isSuccess) {
         toast.dismiss("signup_user")
-        toast.success(data?.message as any);
+        toast.success((data as any)?.message as any);
         // navigate(-1);
       }
 

@@ -22,7 +22,7 @@ export const taskApi = apiSlice.injectEndpoints({
       })
     }),
 
-    getAllTasks: build.mutation<TasksResponse, string>({
+    getAllTasks: build.mutation<TasksResponse[], string>({
         query: (project) => ({
           url: "task/get-project-tasks",
           method: "POST",

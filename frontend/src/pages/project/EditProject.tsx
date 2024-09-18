@@ -33,7 +33,7 @@ const EditProject = () => {
   useEffect(() => {
     if (isSuccess) {
       toast.dismiss("signup_user")
-      toast.success(data?.message as any);
+      toast.success((data as any)?.message as any);
       reset()
       navigate('/dashboard');
     }

@@ -22,7 +22,7 @@ export const projectApi = apiSlice.injectEndpoints({
       })
     }),
 
-    getAllProjects: build.query<ProjectsResponse, any>({
+    getAllProjects: build.query<ProjectsResponse[], any>({
         query: () => ({
           url: "project",
           method: "GET",
@@ -57,14 +57,6 @@ export const projectApi = apiSlice.injectEndpoints({
       invalidatesTags: ['Project']
     }),
 
-    // logoutUser: builder.mutation<void, void>({
-    //   query() {
-    //     return {
-    //       url: 'project',
-    //       credentials: 'include',
-    //     };
-    //   },
-    // })
   }),
 });
 

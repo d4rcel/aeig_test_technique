@@ -5,10 +5,8 @@ import { findProjectById } from './services/project.service';
 import { createMessage } from './services/message.service';
 
 export const initializeSocket = (io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap>) => {
-  console.log("11111111111");
   
   io.use(async (socket, next) => {
-    console.log("2222222222");
     try {
       // Authenticate the user using the token from the socket handshake
       await deserializeSocketUser(socket, next);
@@ -22,7 +20,6 @@ export const initializeSocket = (io: Server<DefaultEventsMap, DefaultEventsMap, 
 
   // Handle socket connection
   io.on('connection', (socket) => {
-    console.log("333333333");
     console.log('User connected:', socket.id);
 
     // Join project room if the user is a project member
@@ -77,9 +74,7 @@ export const initializeSocket = (io: Server<DefaultEventsMap, DefaultEventsMap, 
     });
 
     socket.on('disconnect', () => {
-      console.log("666666666");
       console.log('User disconnected:', socket.id);
     });
   });
-  console.log("888888888");
 };

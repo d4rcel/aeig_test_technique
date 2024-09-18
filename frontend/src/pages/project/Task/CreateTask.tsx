@@ -1,5 +1,5 @@
-import { useCreateTaskMutation, useGetUsersQuery } from "@/features/tasks/taskApi";
-import { ITaskRequest } from "@/types";
+import { useCreateTaskMutation } from "@/features/tasks/taskApi";
+import { ITaskRequest, IUser } from "@/types";
 import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
@@ -7,9 +7,9 @@ import { useLocation, useNavigate } from "react-router-dom"
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-const CreateTask = ({projectId}) => {
+const CreateTask = ({projectId} : {projectId: string}) => {
     const location = useLocation()
-    const users = location.state
+    const users: IUser[] = location.state
     const {
         register,
         control,
@@ -32,7 +32,7 @@ const CreateTask = ({projectId}) => {
     useEffect(() => {
         if (isSuccess) {
             toast.dismiss("signup_user")
-            toast.success(data?.message as any);
+            toast.success((data as any)?.message as any);
             reset()
             navigate(-1);
         }

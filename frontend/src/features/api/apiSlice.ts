@@ -7,12 +7,7 @@ export const apiSlice = createApi({
 
   tagTypes: [
     "Project",
-    "Task",
-    // "Brand",
-    // "Category",
-    // "Product",
-    // "Store",
-    // "Subcategory",
+    "Task"
   ],
   endpoints: () => ({}),
 })
