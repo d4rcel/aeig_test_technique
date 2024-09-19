@@ -14,8 +14,6 @@ const ViewProject = () => {
 
   const project = location.state
 
-  // const { user } = useAppSelector((state) => state.user)
-
   const { tasks } = useAppSelector((state) => state.tasks)
   const [getTasks, {isLoading, isSuccess, isError, error, data }] = useGetAllTasksMutation(undefined);
 
@@ -28,10 +26,6 @@ const ViewProject = () => {
   const { isLoading: loadingUser } = userApi.endpoints.getUsers.useQuery(null, {
     skip: false,
     refetchOnMountOrArgChange: true,
-  });
-
-  const users = userApi.endpoints.getUsers.useQueryState(null, {
-    selectFromResult: ({ data }) => data!,
   });
 
   useEffect(() => {
@@ -84,7 +78,7 @@ const ViewProject = () => {
           </div>
 
           {/* Button to add a new task */}
-          <Link state={users} to={`/create-task/${project._id}`} className="btn btn-primary mb-3" >Ajouter une tache</Link>
+          <Link to={`/create-task/${project._id}`} className="btn btn-primary mb-3" >Ajouter une tache</Link>
 
           {/* List of To-Do Cards */}
           {tasks && tasks.map(task => (

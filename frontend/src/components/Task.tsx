@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import {getFormatedDate} from '@/utils/formater'
+import {getFormatedDate, getStatusStyle} from '@/utils/formater'
 
 
 const Task = ({ task, onDelete }) => {
@@ -14,7 +14,7 @@ return (
     </div>
 
     <div className="d-flex justify-content-between">
-        <span className="badge bg-primary">{task.status}</span>
+        <span className={`${getStatusStyle(task.status)}`}>{task.status}</span>
         <span className="text-muted">Date de fin: {getFormatedDate(task.dueDate)}</span>
     </div>
 

@@ -1,16 +1,18 @@
 import { useCreateTaskMutation } from "@/features/tasks/taskApi";
-import { ITaskRequest, IUser } from "@/types";
+import { ITaskRequest } from "@/types";
 import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import { useLocation, useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { useAppSelector } from "@/app/hook";
 
 const CreateTask = () => {
     const { projectId } = useParams()
-    const location = useLocation()
-    const users: IUser[] = location.state
+
+    const { users } = useAppSelector((state) => state.user)
+
     const {
         register,
         control,
@@ -107,16 +109,16 @@ const CreateTask = () => {
                 <div className="mb25">
                     <label className="form-label fw600 dark-color">Définissez votre un rôle</label>
                     <select className="form-control" {...register('status', { required: true })}>
-                        <option value="pending">En attente</option>
-                        <option value="progress">En cours</option>
-                        <option value="completed">Terminé</option>
+                        <option value="Pending">En attente</option>
+                        <option value="Progress">En cours</option>
+                        <option value="Completed">Terminé</option>
                     </select>
                 </div>
 
                 <div className="mb25">
                     <label className="form-label fw600 dark-color">Assigner à:</label>
                     <select className="form-control mb-2" {...register('assignedTo', { required: true })}>
-                        {users.map((user) => (
+                        {users?.map((user) => (
                             <option key={user._id} value={user._id}>{user.name}</option>
                         ))}
                     </select>
