@@ -34,7 +34,7 @@ export default [
     ,
     {
         title: "Editer une tache",
-        url: "/create-task",
+        url: "/create-task/:projectId",
         component: <CreateTask />
     }
 ];

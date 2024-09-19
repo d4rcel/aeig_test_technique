@@ -3,11 +3,12 @@ import { ITaskRequest, IUser } from "@/types";
 import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import { useLocation, useNavigate } from "react-router-dom"
+import { useLocation, useNavigate, useParams } from "react-router-dom"
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-const CreateTask = ({projectId} : {projectId: string}) => {
+const CreateTask = () => {
+    const { projectId } = useParams()
     const location = useLocation()
     const users: IUser[] = location.state
     const {
@@ -22,8 +23,10 @@ const CreateTask = ({projectId} : {projectId: string}) => {
         useCreateTaskMutation();
 
     const handleCreateTaskForm = (project: ITaskRequest) => {
-        project.project = projectId
-        createTask(project);
+        if(projectId) {
+            project.project = projectId
+            createTask(project);
+        }
     };
 
     const navigate = useNavigate();

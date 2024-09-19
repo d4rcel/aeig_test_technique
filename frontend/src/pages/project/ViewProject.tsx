@@ -84,7 +84,7 @@ const ViewProject = () => {
           </div>
 
           {/* Button to add a new task */}
-          <Link state={users} to="/create-task" className="btn btn-primary mb-3" >Ajouter une tache</Link>
+          <Link state={users} to={`/create-task/${project._id}`} className="btn btn-primary mb-3" >Ajouter une tache</Link>
 
           {/* List of To-Do Cards */}
           {tasks && tasks.map(task => (
