@@ -53,9 +53,7 @@ export const getProjectHandler = async (
 
     res.status(200).json({
       status: 'success',
-      data: {
-        project,
-      },
+      project
     });
   } catch (err: any) {
     next(err);

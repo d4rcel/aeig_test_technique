@@ -16,7 +16,7 @@ export const taskSlice = createSlice({
     setTasks: (state, action: PayloadAction<TasksResponse[]>) => {
       state.tasks = action.payload;
     },
-  },
+  }
 });
 
 export default taskSlice.reducer;

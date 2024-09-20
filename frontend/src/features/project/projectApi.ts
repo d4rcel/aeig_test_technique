@@ -1,4 +1,4 @@
-import { IProjectRequest, IProjectResponse, ProjectsResponse } from '@/types';
+import { IGetProjectResponse, IProjectRequest, IProjectResponse, ProjectsResponse } from '@/types';
 import { apiSlice } from '../api/apiSlice';
 import { setProjects } from './projectSlice';
 
@@ -14,12 +14,13 @@ export const projectApi = apiSlice.injectEndpoints({
         invalidatesTags: ['Project']
     }),
 
-    getProject: build.mutation<any, string>({
+    getProject: build.query<IGetProjectResponse, string>({
       query: (id) => ({
         url: `project/${id}`,
         method: "GET",
         credentials: 'include'
-      })
+      }),
+      providesTags: ['Project']
     }),
 
     getAllProjects: build.query<ProjectsResponse[], any>({
@@ -65,5 +66,5 @@ export const {
   useGetAllProjectsQuery,
   useDeleteProjectMutation,
   useEditProjectMutation,
-  useGetProjectMutation
+  useGetProjectQuery
 } = projectApi;

@@ -1,4 +1,4 @@
-import { ITaskRequest, ITaskResponse, IUser, TasksResponse } from '@/types';
+import { ITaskRequest, ITaskResponse, TasksResponse } from '@/types';
 import { apiSlice } from '../api/apiSlice';
 import { setTasks } from './taskSlice';
 
@@ -6,12 +6,12 @@ export const taskApi = apiSlice.injectEndpoints({
   endpoints: (build) => ({
     createTask: build.mutation<ITaskResponse, ITaskRequest>({
       query: (data) => ({
-          url: 'task',
-          method: 'POST',
-          credentials: 'include',
-          body: data,
-        }),
-        invalidatesTags: ['Task']
+        url: 'task',
+        method: 'POST',
+        credentials: 'include',
+        body: data,
+      }),
+      invalidatesTags: ['Task']
     }),
 
     getTask: build.mutation<any, string>({
@@ -22,25 +22,25 @@ export const taskApi = apiSlice.injectEndpoints({
       })
     }),
 
-    getAllTasks: build.mutation<TasksResponse[], string>({
-        query: (project) => ({
-          url: "task/get-project-tasks",
-          method: "POST",
-          body: project,
-          credentials: 'include',
-        }),
-        invalidatesTags: ['Task'],
-        async onQueryStarted(_, { dispatch, queryFulfilled }) {
-          try {
-            const { data } = await queryFulfilled;
-            
-            dispatch(setTasks(data.data.tasks))
-          } catch (error) { }
-        }
+    getAllTasks: build.query<any, string>({
+      query: (project) => ({
+        url: "task/get-project-tasks",
+        method: "POST",
+        body: { project: project },
+        credentials: 'include',
       }),
+      providesTags: ['Task'],
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        try {
+          const { data } = await queryFulfilled;
+
+          dispatch(setTasks(data.data.tasks))
+        } catch (error) { }
+      }
+    }),
 
     editTask: build.mutation<TasksResponse, { id: string; body: ITaskRequest }>({
-      query: ({id, body}) => ({
+      query: ({ id, body }) => ({
         url: `task/${id}`,
         method: "PATCH",
         body: body,
@@ -58,14 +58,6 @@ export const taskApi = apiSlice.injectEndpoints({
       invalidatesTags: ['Task']
     }),
 
-    getUsers: build.query<any, any>({
-      query: () => ({
-        url: "users",
-        method: "GET",
-        credentials: 'include'
-      })
-    }),
-
   }),
 });
 
@@ -73,7 +65,6 @@ export const {
   useCreateTaskMutation,
   useDeleteTaskMutation,
   useEditTaskMutation,
-  useGetAllTasksMutation,
+  useGetAllTasksQuery,
   useGetTaskMutation,
-  useGetUsersQuery
 } = taskApi;

@@ -31,7 +31,7 @@ const Project = () => {
             {projects.map((project, index) => (
               <div className="col" key={index}>
                 <div className="card">
-                  <Link to="/view-project" state={project} className="card-header">{project.title}</Link>
+                  <Link to={`/view-project/${project._id}`} className="card-header">{project.title}</Link>
                   <div className={`ml-8 card-subtitle mt-2 ${getStatusStyle(project.status)}`} >{project.status}</div>
                   <div className="card-body">
                     <p className="card-text">{project.description}</p>

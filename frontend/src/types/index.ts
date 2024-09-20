@@ -60,6 +60,10 @@ export interface GenericResponse {
     status: string;
   }
 
+  export interface IGetProjectResponse {
+    project: IProjectResponse;
+  }
+
   export type ProjectsResponse = Required<{
     projects: IProjectResponse[]
   }>;

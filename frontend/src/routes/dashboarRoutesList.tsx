@@ -22,7 +22,7 @@ export default [
     },
     {
         title: "Voir un projet",
-        url: "/view-project",
+        url: "/view-project/:projectId",
         component: <ViewProject />
     }
     // ,
