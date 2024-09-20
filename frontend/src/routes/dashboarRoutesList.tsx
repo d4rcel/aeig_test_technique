@@ -2,6 +2,7 @@ import Chat from "@/pages/chat";
 import CreateProject from "@/pages/project/CreateProject";
 import EditProject from "@/pages/project/EditProject";
 import CreateTask from "@/pages/project/Task/CreateTask";
+import EditTask from "@/pages/project/Task/EditTask";
 import ViewProject from "@/pages/project/ViewProject";
 
 export default [
@@ -24,17 +25,15 @@ export default [
         title: "Voir un projet",
         url: "/view-project/:projectId",
         component: <ViewProject />
-    }
-    // ,
-    // {
-    //     title: "Editer une tache",
-    //     url: "/edit-task",
-    //     component: <EditTask />
-    // }
-    ,
+    },
     {
         title: "Editer une tache",
         url: "/create-task/:projectId",
         component: <CreateTask />
+    },
+    {
+        title: "Editer une tache",
+        url: "/edit-task/:projectId/:taskId",
+        component: <EditTask />
     }
 ];

@@ -66,9 +66,7 @@ export const getTaskHandler = async (
 
     res.status(200).json({
       status: 'success',
-      data: {
-        task,
-      },
+      task
     });
   } catch (err: any) {
     next(err);

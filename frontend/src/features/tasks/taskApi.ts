@@ -1,4 +1,4 @@
-import { ITaskRequest, ITaskResponse, TasksResponse } from '@/types';
+import { IGetTaskResponse, ITaskRequest, ITaskResponse, TasksResponse } from '@/types';
 import { apiSlice } from '../api/apiSlice';
 import { setTasks } from './taskSlice';
 
@@ -14,12 +14,13 @@ export const taskApi = apiSlice.injectEndpoints({
       invalidatesTags: ['Task']
     }),
 
-    getTask: build.mutation<any, string>({
+    getTask: build.query<IGetTaskResponse, string>({
       query: (id) => ({
         url: `task/${id}`,
         method: "GET",
         credentials: 'include'
-      })
+      }),
+      providesTags: ['Task']
     }),
 
     getAllTasks: build.query<any, string>({
@@ -66,5 +67,5 @@ export const {
   useDeleteTaskMutation,
   useEditTaskMutation,
   useGetAllTasksQuery,
-  useGetTaskMutation,
+  useGetTaskQuery,
 } = taskApi;

@@ -29,7 +29,7 @@ import {
     filter: FilterQuery<Task>,
     sort?: string | Record<string, 1 | -1>
   }) => {
-    return taskModel.find(filter).sort(sort).populate('assignedTo').populate('project');
+    return taskModel.find(filter).sort(sort).populate('assignedTo');
   };
   
   export const findTask = async (

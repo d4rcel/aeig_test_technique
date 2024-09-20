@@ -86,6 +86,12 @@ export interface GenericResponse {
     dueDate: Date;
     status: string;
     assignedTo: string
+    priority: string
+    project: string
+  }
+
+  export interface IGetTaskResponse {
+    task: ITaskResponse;
   }
 
   export type TasksResponse = Required<{
