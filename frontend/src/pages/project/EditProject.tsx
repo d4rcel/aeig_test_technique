@@ -1,19 +1,18 @@
-import { useEditProjectMutation } from "@/features/project/projectApi";
+import { useEditProjectMutation, useGetProjectQuery } from "@/features/project/projectApi";
 import { IProjectRequest } from "@/types";
 import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import { useNavigate, useLocation } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
 
 const EditProject = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const stateProject = location.state;  
+  const { projectId } = useParams()
+  const { data: projectData } = useGetProjectQuery(projectId!)
 
-  const id:string = stateProject._id
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -25,8 +24,8 @@ const EditProject = () => {
     useEditProjectMutation();
 
   const handleEditForm = (project: IProjectRequest) => {
-    
-    editProject({ id , body:project });
+
+    editProject({ id: projectData?.project._id as string, body: project });
   };
 
 
@@ -60,7 +59,7 @@ const EditProject = () => {
 
   return (
     <div className="container" style={{ margin: "auto" }}>
-      <form className="form-style1" onSubmit={handleSubmit(handleEditForm)}>
+      {projectData && <form className="form-style1" onSubmit={handleSubmit(handleEditForm)}>
         <div className="row">
           <div className="col-md-6 mb25">
             <label htmlFor="name" className="form-label fw600 dark-color">Nom</label>
@@ -68,7 +67,7 @@ const EditProject = () => {
               id="name"
               type="text"
               className="form-control"
-              defaultValue={stateProject.title}
+              defaultValue={projectData.project.title}
               {...register('title')}
             />
           </div>
@@ -79,7 +78,7 @@ const EditProject = () => {
               id="description"
               type="text"
               className="form-control"
-              defaultValue={stateProject.description}
+              defaultValue={projectData.project.description}
               {...register('description')}
             />
           </div>
@@ -89,25 +88,25 @@ const EditProject = () => {
           <div className="col-md-6 mb25">
             <label className="form-label fw600 dark-color">Date</label>
             <Controller
-                name="dueDate"
-                control={control}
-                defaultValue={stateProject.dueDate}
-                render={({ field: { onChange, value } }) => (
+              name="dueDate"
+              control={control}
+              defaultValue={projectData.project.dueDate}
+              render={({ field: { onChange, value } }) => (
                 <DatePicker
-                    id="dueDate"
-                    selected={value}
-                    onChange={(date) => onChange(date)}
+                  id="dueDate"
+                  selected={value}
+                  onChange={(date) => onChange(date)}
                 />
-                )}
+              )}
             />
           </div>
 
           <div className="col-md-6 mb20">
             <label htmlFor="password" className="form-label fw600 dark-color">Statut</label>
-              <select defaultValue={stateProject.status} className="form-control" {...register('status')}>
-                <option value="pending">En attente</option>
-                <option value="progress">En cours</option>
-                <option value="completed">Terminé</option>
+            <select defaultValue={projectData.project.status} className="form-control" {...register('status')}>
+              <option value="pending">En attente</option>
+              <option value="progress">En cours</option>
+              <option value="completed">Terminé</option>
             </select>
           </div>
         </div>
@@ -118,7 +117,7 @@ const EditProject = () => {
             Valider
           </button>
         </div>
-      </form>
+      </form>}
     </div>
 
 

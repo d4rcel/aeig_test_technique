@@ -17,7 +17,7 @@ export default [
     },
     {
         title: "Editer un projet",
-        url: "/edit-project",
+        url: "/edit-project/:projectId",
         component: <EditProject />
     },
     {
