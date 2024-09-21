@@ -7,26 +7,21 @@ import { apiSlice } from '../api/apiSlice';
 export const authApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     registerUser: builder.mutation<GenericResponse, RegisterInput>({
-      query(data) {
-        return {
+      query: (data) => ({
           url: 'auth/register',
           method: 'POST',
           body: data,
-        };
-      },
+        })
     }),
-    loginUser: builder.mutation<
-      { access_token: string; status: string },
-      LoginInput
-    >({
-      query(data) {
-        return {
+
+    loginUser: builder.mutation<{ access_token: string; status: string },LoginInput>({
+      query: (data) => ({
           url: 'auth/login',
           method: 'POST',
           body: data,
           credentials: 'include',
-        };
-      },
+      }),
+      invalidatesTags:["Project"],
       async onQueryStarted(_args, { dispatch, queryFulfilled }) {
         try {
           await queryFulfilled;
@@ -34,6 +29,7 @@ export const authApi = apiSlice.injectEndpoints({
         } catch (error) {}
       },
     }),
+
     logoutUser: builder.mutation<void, void>({
       query() {
         return {

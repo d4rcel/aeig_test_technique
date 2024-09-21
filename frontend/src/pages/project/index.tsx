@@ -7,6 +7,7 @@ import { getStatusStyle } from '@/utils/formater'
 
 const Project = () => {
   const { projects } = useAppSelector((state) => state.projects)
+  const { user } = useAppSelector((state) => state.user)
 
   const { isLoading } = useGetAllProjectsQuery(undefined);
 
@@ -22,10 +23,14 @@ const Project = () => {
   return (
     <div className="container">
       {isLoading && <div>CHARGEMENT...</div>}
-      {(!projects || projects?.length === 0) && <Link to="/create-project" className="fz20 centered-element">
-        Créer un projet maintenant
-      </Link>}
-
+      {
+        (!projects || projects?.length === 0) ? 
+          user?.role == "admin" ? <Link to="/create-project" className="fz20 centered-element">Créer un projet maintenant</Link> 
+            : <div className="fz20 centered-element">Vous n'avez aucun projet en cours. Attendez qu'un administrateur vous rajoute à un projet. Merci</div>
+                : <div></div>
+      }
+      
+      {/* <div className="fz20 centered-element">Vous n'avez aucun projet en cours. Attendez qu'un administrateur vous rajoute à un projet. Merci</div> */}
       <div className="row">
         {projects && <div className="row row-cols-1 row-cols-md-3 g-4">
           {projects.map((project, index) => (

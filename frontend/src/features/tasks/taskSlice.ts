@@ -13,6 +13,7 @@ export const taskSlice = createSlice({
   initialState,
   name: 'taskSlice',
   reducers: {
+    onLogout: () => initialState,
     setTasks: (state, action: PayloadAction<TasksResponse[]>) => {
       state.tasks = action.payload;
     },

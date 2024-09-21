@@ -47,14 +47,10 @@ const ViewProject = () => {
         toast.dismiss("signup_user")
         if (Array.isArray((error as any).data.error)) {
           (error as any).data.error.forEach((el: any) =>
-            toast.error(el.message, {
-              position: 'top-right',
-            })
+            toast.error(el.message)
           );
         } else {
-          toast.error((error as any).data.message, {
-            position: 'top-right',
-          });
+          toast.error((error as any).data.message);
         }
       }
     }

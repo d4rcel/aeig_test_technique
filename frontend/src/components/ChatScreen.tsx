@@ -62,7 +62,7 @@ const ChatScreen = ({ projectId }: { projectId: string }) => {
     <>
       <div className="col-md-3 p-3 border-start">
         <h5 className="fw-bold">Chat</h5>
-        {messages && messages.length !== 0 && <div
+        <div
           className="chat-box mb-3"
           style={{ height: '300px', overflowY: 'auto', border: '1px solid #ccc', padding: '10px' }}
           ref={chatBoxRef}
@@ -72,12 +72,14 @@ const ChatScreen = ({ projectId }: { projectId: string }) => {
           {isError && <div>Failed to load chat history</div>}
 
           {/* Display chat messages */}
-          {messages.map((msg, index) => (
-            <div key={index} className="message mb-2" style={{ fontSize: '18px' }}>
-              <strong>{msg.sender.name}:</strong> {msg.content}
-            </div>
-          ))}
-        </div>}
+          {messages && messages.length !== 0 && <div>
+            {messages.map((msg, index) => (
+              <div key={index} className="message mb-2" style={{ fontSize: '18px' }}>
+                <strong>{msg.sender.name}:</strong> {msg.content}
+              </div>
+            ))}
+          </div>}
+        </div>
 
         {/* Chat Input */}
         <div className="input-group">
