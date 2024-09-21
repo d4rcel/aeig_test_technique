@@ -17,16 +17,7 @@ import http from 'http';
 import { initializeSocket } from './socket';
 
 const app = express();
-const server = http.createServer(app);
-const io = new Server(server, {
-    cors: {
-      origin: ['http://localhost:5173','https://www.postman.com'],
-      credentials: true,
-    },
-  });
 
-
-initializeSocket(io);
 app.use(express.json({ limit: '10kb' }));
 app.use(cookieParser());
 
@@ -35,7 +26,7 @@ if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
 app.use(
     cors({
         credentials: true,
-        origin: ['http://localhost:5173','https://www.postman.com'],
+        origin: ['http://localhost:5173'],
     })
 );
 
@@ -66,7 +57,18 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
 
 
 const port = config.get<number>('port');
-app.listen(port, () => {
+
+const server = http.createServer(app);
+const io = new Server(server, {
+    cors: {
+      origin: ['http://localhost:5173'],
+      credentials: true,
+    },
+  });
+
+
+initializeSocket(io);
+server.listen(port, () => {
     console.log(`Server started on port: ${port}`);
     connectDB();
 });

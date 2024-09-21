@@ -1,4 +1,4 @@
-import { IGetProjectResponse, IProjectRequest, IProjectResponse, ProjectsResponse } from '@/types';
+import { IChatResponse, IGetProjectResponse, IProjectRequest, IProjectResponse, ProjectsResponse } from '@/types';
 import { apiSlice } from '../api/apiSlice';
 import { setProjects } from './projectSlice';
 
@@ -58,6 +58,14 @@ export const projectApi = apiSlice.injectEndpoints({
       invalidatesTags: ['Project']
     }),
 
+    getProjectChatHistory: build.query<IChatResponse, string>({
+      query: (projectId) => ({
+        url: `chat/${projectId}`,
+        method: 'GET',
+        credentials: 'include'
+      }),
+    }),
+
   }),
 });
 
@@ -66,5 +74,6 @@ export const {
   useGetAllProjectsQuery,
   useDeleteProjectMutation,
   useEditProjectMutation,
-  useGetProjectQuery
+  useGetProjectQuery,
+  useGetProjectChatHistoryQuery
 } = projectApi;

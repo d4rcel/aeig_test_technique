@@ -3,10 +3,24 @@ import { findUserById } from '../services/user.service';
 import { verifyJwt } from '../utils/jwt';
 import AppError from '../utils/appError';
 
+function getAccessToken(cookie: string) {
+  const cookieString = cookie;
+  const cookieArray = cookieString.split(';');
+  
+  for (let cookie of cookieArray) {
+    const [name, value] = cookie.trim().split('=');
+    if (name === 'access_token') {
+      return `Bearer ${value}`;
+    }
+  }
+  
+  return null; // Return null if access_token is not found
+}
+
 export const deserializeSocketUser = async (socket: Socket, next: (err?: Error) => void) => {
   try {
-    // Extract the token from the handshake headers
-    let access_token = socket.handshake.headers.authorization;
+
+    let access_token = getAccessToken(socket.handshake.headers.cookie!);
 
     if (access_token && access_token.startsWith('Bearer')) {
       access_token = access_token.split(' ')[1];

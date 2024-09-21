@@ -6,6 +6,8 @@ import { createMessage } from './services/message.service';
 
 export const initializeSocket = (io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap>) => {
   
+  console.log("HHHHHHHH");
+  
   io.use(async (socket, next) => {
     try {
       // Authenticate the user using the token from the socket handshake
@@ -13,7 +15,6 @@ export const initializeSocket = (io: Server<DefaultEventsMap, DefaultEventsMap, 
       console.log("Socket connected...");
       
     } catch (err) {
-      console.log("Socket error connection...");
       next(new Error('Authentication error'));
     }
   });
@@ -47,6 +48,7 @@ export const initializeSocket = (io: Server<DefaultEventsMap, DefaultEventsMap, 
 
     // Handle receiving a new chat message
     socket.on('sendMessage', async ({ projectId, message }) => {
+      console.log("HHHHHHHH 555");
       try {
         const user = socket.data.user; // Extract user from socket
 
@@ -74,6 +76,7 @@ export const initializeSocket = (io: Server<DefaultEventsMap, DefaultEventsMap, 
     });
 
     socket.on('disconnect', () => {
+      console.log("HHHHHHHH 666");
       console.log('User disconnected:', socket.id);
     });
   });

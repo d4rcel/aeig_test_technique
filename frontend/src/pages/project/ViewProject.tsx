@@ -8,8 +8,10 @@ import { toast } from "react-hot-toast"
 import { Link, useParams } from "react-router-dom"
 import { getFormatedDate, getStatusStyle } from '@/utils/formater'
 import { userApi } from "@/features/user/userApi"
+import { useCookies } from "react-cookie"
 
 const ViewProject = () => {
+  const [cookies] = useCookies(['access_token']);
   const { projectId } = useParams()
   const { tasks } = useAppSelector((state) => state.tasks)
   const dispatch = useAppDispatch()
@@ -27,7 +29,7 @@ const ViewProject = () => {
     refetchOnMountOrArgChange: true,
   });
 
-
+  
   useEffect(() => {
 
     if (!tasks) {
@@ -88,7 +90,7 @@ const ViewProject = () => {
         </div>
 
         {/* Second part - 25% width - Chat */}
-        <ChatScreen />
+        <ChatScreen projectId={projectId!}/>
       </div>
     </div>
   )

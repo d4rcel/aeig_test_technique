@@ -29,9 +29,7 @@ export const getChatHistoryHandler = async (
 
     res.status(200).json({
       status: 'success',
-      data: {
-        messages,
-      },
+      messages
     });
   } catch (err: any) {
     next(err);
