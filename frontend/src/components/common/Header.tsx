@@ -1,8 +1,19 @@
 import { Link } from "react-router-dom"
 import { useAppSelector } from "@/app/hook"
+import { useLogoutUserMutation } from "@/features/auth/authApi"
+
 
 const Header = () => {
     const { user } = useAppSelector((state) => state.user)
+
+    const [logoutUser] = useLogoutUserMutation();
+
+    const onLogoutHandler = async (e: any) => {
+        e.preventDefault()
+        logoutUser().unwrap().then(() => {
+            window.location.href = '/login';
+        });
+      };
 
     return (
         <div>
@@ -24,7 +35,7 @@ const Header = () => {
                     </div>}
 
                     {user && <div className="col-md-3 text-end">
-                        <Link to="/login" type="button" className="btn btn-outline-primary me-2 auHover">Se déconnecter</Link>
+                        <a type="button" className="btn btn-outline-primary me-2 auHover" onClick={(e) => onLogoutHandler(e)}>Se déconnecter</a>
                     </div>}
                 </header>
             </div>

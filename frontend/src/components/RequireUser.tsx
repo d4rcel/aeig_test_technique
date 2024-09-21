@@ -24,6 +24,9 @@ const RequireUser = ({ allowedRoles, children }: { allowedRoles: string[], child
     </div>;
   }
   
+  // console.log("SHAKA ::: 111", cookies.logged_in);
+  // console.log("SHAKA ::: 222", user);
+  
   return (cookies.logged_in || user) &&
     allowedRoles.includes(user?.role as string) ? (
     <>{children}</>
