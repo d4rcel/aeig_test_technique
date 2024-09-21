@@ -24,7 +24,6 @@ const ChatScreen = ({ projectId }: { projectId: string }) => {
     socket.emit('joinProject', { projectId });
 
     socket.on('newMessage', (message) => {
-      console.log("MAMAMIA  :::: SERVER ", message);
       setMessages((prevMessages) => [...prevMessages, message]);
 
       // Scroll to the bottom of the chat box when a new message arrives
