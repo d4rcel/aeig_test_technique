@@ -7,13 +7,9 @@ let socket: Socket;
 
 const ChatScreen = ({ projectId }: { projectId: string }) => {
   const [newMessage, setNewMessage] = useState('');
-  const chatBoxRef = useRef<HTMLDivElement | null>(null); // Reference to chat box for auto-scroll
+  const chatBoxRef = useRef<HTMLDivElement | null>(null);
 
-  // Fetch chat history from the API
   const { data: chatMessages, isLoading, isError } = useGetProjectChatHistoryQuery(projectId);
-
-  console.log("CHATMESSAGES ::: 444 :::", chatMessages);
-  
 
   const [messages, setMessages] = useState<IChatMessage[]>(chatMessages?.messages || []);
 
@@ -22,14 +18,13 @@ const ChatScreen = ({ projectId }: { projectId: string }) => {
     // Establish the socket connection with credentials
     socket = io('http://localhost:8000', {
 
-      withCredentials: true,  // Ensures that cookies are included in the WebSocket connection
+      withCredentials: true,
     });
 
-    // Join the project chat room
     socket.emit('joinProject', { projectId });
 
-    // Listen for new messages from the server
     socket.on('newMessage', (message) => {
+      console.log("MAMAMIA  :::: SERVER ", message);
       setMessages((prevMessages) => [...prevMessages, message]);
 
       // Scroll to the bottom of the chat box when a new message arrives
@@ -45,26 +40,30 @@ const ChatScreen = ({ projectId }: { projectId: string }) => {
   }, [projectId]);
 
 
-  // Handle sending a new message
   const handleSendMessage = () => {
+
     if (newMessage.trim() !== '') {
       socket.emit('sendMessage', { projectId, message: newMessage });
-      setNewMessage('');  // Clear the input after sending
+      setNewMessage('');
     }
   };
 
   // Scroll to the bottom when messages are loaded initially
   useEffect(() => {
+    if (chatMessages) {
+
+      setMessages(chatMessages?.messages);
+    }
     if (chatBoxRef.current) {
       chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
     }
-  }, [chatMessages]);
+  }, [chatMessages?.messages]);
 
   return (
     <>
       <div className="col-md-3 p-3 border-start">
         <h5 className="fw-bold">Chat</h5>
-        <div
+        {messages && messages.length !== 0 && <div
           className="chat-box mb-3"
           style={{ height: '300px', overflowY: 'auto', border: '1px solid #ccc', padding: '10px' }}
           ref={chatBoxRef}
@@ -74,14 +73,12 @@ const ChatScreen = ({ projectId }: { projectId: string }) => {
           {isError && <div>Failed to load chat history</div>}
 
           {/* Display chat messages */}
-          {chatMessages && <div>
-            {messages.map((msg, index) => (
-              <div key={index} className="message mb-2">
-                <strong>{msg.sender.name}:</strong> {msg.content}
-              </div>
-            ))}
-          </div>}
-        </div>
+          {messages.map((msg, index) => (
+            <div key={index} className="message mb-2" style={{ fontSize: '18px' }}>
+              <strong>{msg.sender.name}:</strong> {msg.content}
+            </div>
+          ))}
+        </div>}
 
         {/* Chat Input */}
         <div className="input-group">

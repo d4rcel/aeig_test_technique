@@ -26,14 +26,13 @@ export const initializeSocket = (io: Server<DefaultEventsMap, DefaultEventsMap, 
     // Join project room if the user is a project member
     socket.on('joinProject', async ({ projectId }) => {
       try {
-        const user = socket.data.user; // Extract user from socket
+        const user = socket.data.user; 
 
         const project = await findProjectById(projectId);
         if (!project) {
           return socket.emit('error', 'Project not found');
         }
 
-        // Check if the user is a member of the project
         if (!project.members.includes(user._id)) {
           return socket.emit('error', 'You are not a member of this project');
         }
@@ -48,9 +47,9 @@ export const initializeSocket = (io: Server<DefaultEventsMap, DefaultEventsMap, 
 
     // Handle receiving a new chat message
     socket.on('sendMessage', async ({ projectId, message }) => {
-      console.log("HHHHHHHH 555");
+      console.log("A message is sent :::",projectId, message);
       try {
-        const user = socket.data.user; // Extract user from socket
+        const user = socket.data.user;
 
         const project = await findProjectById(projectId);
         if (!project) {
@@ -63,8 +62,9 @@ export const initializeSocket = (io: Server<DefaultEventsMap, DefaultEventsMap, 
 
         // Emit the message to the project room
         io.to(projectId).emit('newMessage', {
-          message,
-          sender: user._id,
+          content: message,
+          name: user.name,
+          sender: user,
           timestamp: new Date(),
         });
 
