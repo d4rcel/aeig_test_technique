@@ -133,6 +133,9 @@ export const updateTaskHandler = async (
   next: NextFunction
 ) => {
   try {
+    console.log("MILLIARD :::: 111111111111111111111111111111111111111111", req.params.taskId)
+    console.log("MILLIARD :::: 222222222222222222222222222222222222222222", req.body.project)
+    console.log("MILLIARD :::: 333333333333333333333333333333333333333333", req.body.assignedTo)
     const updatedTask = await findAndUpdateTask(
       { _id: req.params.taskId },
       req.body,
@@ -144,6 +147,7 @@ export const updateTaskHandler = async (
     }
 
     if (req.body.assignedTo && req.body.project) {
+      console.log("MILLIARD :::: 444444444444444444444444444444",req.body.project, req.body.assignedTo)
       const project = await findProjectById(req.body.project);
 
       if (!project) {

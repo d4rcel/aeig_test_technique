@@ -6,11 +6,13 @@ import { useNavigate, useParams } from "react-router-dom"
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useEditTaskMutation, useGetTaskQuery } from "@/features/tasks/taskApi";
+import { useAppSelector } from "@/app/hook";
 
 
 const EditTask = () => {
   const { projectId, taskId } = useParams()
   const { data: taskData } = useGetTaskQuery(taskId!)
+  const { users } = useAppSelector((state) => state.user)
 
   const navigate = useNavigate();
   const {
@@ -24,8 +26,10 @@ const EditTask = () => {
     useEditTaskMutation();
 
   const handleEditForm = (task: ITaskRequest) => {
-
-    editTask({ id: taskData?.task._id as string, body: task });
+    if(projectId) {
+      task.project = projectId
+      editTask({ id: taskData?.task._id as string, body: task });
+    }
   };
 
 
@@ -114,6 +118,15 @@ const EditTask = () => {
               <option value="low">Faible</option>
               <option value="medium">Moyen</option>
               <option value="high">Elevé</option>
+            </select>
+          </div>
+
+          <div className="col-md-6 mb20">
+            <label className="form-label fw600 dark-color">Assigner à:</label>
+            <select className="form-control mb-2" {...register('assignedTo')}>
+              {users?.map((user) => (
+                <option key={user._id} value={user._id}>{user.name}</option>
+              ))}
             </select>
           </div>
         </div>

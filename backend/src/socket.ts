@@ -6,7 +6,7 @@ import { createMessage } from './services/message.service';
 
 export const initializeSocket = (io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap>) => {
   
-  console.log("HHHHHHHH");
+  console.log("Socket");
   
   io.use(async (socket, next) => {
     try {
@@ -76,7 +76,6 @@ export const initializeSocket = (io: Server<DefaultEventsMap, DefaultEventsMap, 
     });
 
     socket.on('disconnect', () => {
-      console.log("HHHHHHHH 666");
       console.log('User disconnected:', socket.id);
     });
   });
